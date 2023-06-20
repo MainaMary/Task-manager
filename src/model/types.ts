@@ -34,5 +34,6 @@ export interface TextAreaProps {
   name:string,
   value: string,
   onChange: (x:any) =>void,
-  placeholder: string
+  placeholder: string,
+  row: number
   }
