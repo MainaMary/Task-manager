@@ -4,7 +4,7 @@ interface Props{
 
 const Title = ({title}:Props) => {
   return (
-    <p className='text-primary-color text-md '>{title}</p>
+    <p className='text-primary-color text-2xl '>{title}</p>
   )
 }
 
