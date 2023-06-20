@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+@layer base {
+  
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-5xl;
+  }
+  button{
+    @apply text-sm rounded-sm text-white bg-primary-color outline-none text-center px-4 font-normal py-3 cursor-pointer;
+  }
+  a {
+    @apply no-underline;
+  }
+  li {
+    @apply list-none
+  }
+}
+body{
+font-family: 'Inter', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Poppins', sans-serif;
+background-color: rgb(233, 233, 233);
+}
+
+
