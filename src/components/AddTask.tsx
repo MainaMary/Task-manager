@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import CustomLabel from "./CustomLabel";
 import CustomTextArea from "./CustomTextArea";
 import CustomInput from "./CustomInput";
@@ -79,6 +80,7 @@ const AddTask = () => {
         task:''
         }
       )
+      toast.success('Task edited succesfully')
      setFormValues({
       task: "",
       desc: "",
@@ -88,6 +90,7 @@ const AddTask = () => {
      
     }else{
       setAllTasks([...allTasks, newTask]);
+      toast.success('Task created succesfully')
       setFormValues({
       task: "",
       desc: "",
@@ -100,7 +103,7 @@ const AddTask = () => {
   console.log(allTasks);
 
   return (
-    <div className="w-[40%] mt-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]">
+    <div className=" w-full lg:w-[60%] mt-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]">
       <form
         onSubmit={handleSubmit}
         className="w-full border-b-[1px] border-gray-300 pb-2"
@@ -108,8 +111,8 @@ const AddTask = () => {
         <div>
           <Title title={editTask.id  ? "Edit Task": "Add Task"} />
         </div>
-        <div className="flex justify-between gap-8">
-          <div className="my-2 w-[40%] ">
+        <div className="block lg:flex justify-between gap-8">
+          <div className="my-2 w-full lg:w-[40%] ">
             <CustomLabel>Task</CustomLabel>
             <CustomInput
               name="task"
@@ -118,7 +121,7 @@ const AddTask = () => {
               type="text"
             />
           </div>
-          <div className="my-2 w-[60%]">
+          <div className="my-2 w-full lg:w-[60%]">
             <CustomLabel>Description</CustomLabel>
             <CustomTextArea
               row={1}
@@ -136,7 +139,9 @@ const AddTask = () => {
         </div>
       </form>
     <div className="my-2">
-      {allTasks.length === 0 ? <p>No tasks created</p> : allTasks.map((todo:TaskType) =><SingleTask key={todo.id} todo={todo}/>)}
+      {allTasks.length === 0 ? <p>No tasks created</p> : <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3">
+        {allTasks.map((todo:TaskType) =><SingleTask key={todo.id} todo={todo}/>)}
+        </div>}
     </div>
     </div>
   );
