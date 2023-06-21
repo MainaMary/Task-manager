@@ -11,6 +11,6 @@ const routesList = [
 ]
 
 const AppRoutes = () =>{
-    return <Routes>{routesList.map(({path, component})=> <Route path={path} element={component}/>)}</Routes>
+    return <Routes>{routesList.map(({path, component})=> <Route key={path} path={path} element={component}/>)}</Routes>
 }
 export default AppRoutes
