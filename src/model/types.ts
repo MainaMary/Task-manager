@@ -4,12 +4,7 @@ export interface Inputprops {
     type:string;
     name?: string;
     placeholder? :string;
-    value?: string | number ;
-    min?:number;
-    max?: number;
-    accept?: string;
-    required?:boolean;
-    multiple?: boolean;
+    value?: string
     className?: string;
   
   }
