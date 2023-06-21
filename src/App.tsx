@@ -5,7 +5,7 @@ function App() {
   
 
   return (
-    <div>
+    <div className='px-6 lg:px-0'>
      
        <AppRoutes/>
     </div>
