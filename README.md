@@ -1,5 +1,5 @@
-## React core concepts
-### Programs to demonstrate React concepts
+## Task manager
+
 
 A todo List application bootstrapped by <a href="https://vitejs.dev/guide/">vite</a>
 
