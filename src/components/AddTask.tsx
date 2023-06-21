@@ -116,7 +116,7 @@ const AddTask = () => {
             <CustomLabel>Task</CustomLabel>
             <CustomInput
               name="task"
-              value={task}
+              value={task ? task: ''}
               onChange={handleChange}
               type="text"
             />
@@ -126,7 +126,7 @@ const AddTask = () => {
             <CustomTextArea
               row={1}
               name="desc"
-              value={desc}
+              value={desc ? desc: ''}
               onChange={handleChange}
               placeholder="Write a description..."
             />

@@ -25,8 +25,8 @@ const SingleTask = ({todo}:Prop) => {
      
       </div>
       <div className='text-primary-color w-[10%] text-left cursor-pointer flex h-auto items-center gap-2 '>
-      <AiFillDelete onClick={handleModal} size={20}/>
-      <AiFillEdit onClick={() =>findTask(todo.id)} size={20}/>
+      <AiFillDelete onClick={handleModal} size={32}/>
+      <AiFillEdit onClick={() =>findTask(todo.id)} size={32}/>
       </div>
      </div>
     </div>
