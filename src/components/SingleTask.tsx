@@ -9,7 +9,7 @@ interface Prop{
 
 const SingleTask = ({todo}:Prop) => {
   const [showModal, setShowModal] = useState<boolean>(false)
-  const {findTask, editTask} = useTaskList()
+  const {findTask} = useTaskList()
   const handleModal = () =>{
     setShowModal(prev => !prev)
   }
