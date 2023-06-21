@@ -1,47 +1,133 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomLabel from "./CustomLabel";
 import CustomTextArea from "./CustomTextArea";
 import CustomInput from "./CustomInput";
 import CustomButton from "./CustomButton";
+import { useTaskList } from "../context/appContext";
 import Title from "./Title";
+import SingleTask from "./SingleTask";
+import { TaskType } from "../model/types";
 const AddTask = () => {
- const [formValues, setFormValues] = useState({
-    task:'',
-    desc:'',
-   
-    
- })
- const {task,desc} = formValues
-  const handleChange = (e:any) =>{
-    const {name, value} = e.target
-    setFormValues({...formValues, [name]: value})
+  const [formValues, setFormValues] = useState<any>({
+    task: "",
+    desc: "",
+    id:" ",
+    time:''
+  });
+  const {editTask, allTasks, setEditTask,handleEdit, setAllTasks, clearList, isComplete, setIsComplete } = useTaskList();
 
-  }
+  const { task, desc } = formValues;
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+  const getTime = () => {
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+    return `${currentHour}: ${currentMinute}`;
+  };
+  useEffect(()=>{
+    if(editTask !== null){
+     setFormValues(editTask)
+    }else{
+      setFormValues({
+        task: "",
+    desc: "",
+    id:" ",
+    time:''
+      })
+    }
+  },[editTask])
+  console.log(formValues)
+  console.log(editTask)
   const handleSubmit = (event: any) => {
     event.preventDefault();
+
+    let newTask = {
+      task,
+      desc,
+      time: getTime(),
+      id: Date.now(),
+    };
+  
+   
+    if(editTask.id){
+      let newTask = {
+        task,
+        desc,
+        time: getTime(),
+        id: formValues.id,
+      };
+      handleEdit(newTask)
+      setEditTask(
+        {
+          id:'',
+        time:'',
+        desc:'',
+        task:''
+        }
+      )
+     setFormValues({
+      task: "",
+      desc: "",
+     
+      })
+      console.log('edit')
+     
+    }else{
+      setAllTasks([...allTasks, newTask]);
+      setFormValues({
+      task: "",
+      desc: "",
+     
+      })
+      console.log('submit')
+    }
+   
   };
+  console.log(allTasks);
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-[40%] mt-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]"
-    >
+    <div className="w-[40%] mt-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full border-b-[1px] border-gray-300 pb-2"
+      >
         <div>
-            <Title title="Add Task"/>
+          <Title title={editTask.id  ? "Edit Task": "Add Task"} />
         </div>
-      <div className="flex justify-between gap-8">
-      <div className="my-2 w-[40%] ">
-        <CustomLabel>Task</CustomLabel>
-        <CustomInput name="task" value={task} onChange={handleChange} type="text"/>
-      </div>
-      <div className="my-2 w-[60%]">
-        <CustomLabel>Description</CustomLabel>
-        <CustomTextArea row={1} name="task" value={desc} onChange={handleChange} placeholder="Write a description..."/>
-      </div>
-      </div>
-      <div className="my-2">
-        <CustomButton>Submit</CustomButton>
-      </div>
-    </form>
+        <div className="flex justify-between gap-8">
+          <div className="my-2 w-[40%] ">
+            <CustomLabel>Task</CustomLabel>
+            <CustomInput
+              name="task"
+              value={task}
+              onChange={handleChange}
+              type="text"
+            />
+          </div>
+          <div className="my-2 w-[60%]">
+            <CustomLabel>Description</CustomLabel>
+            <CustomTextArea
+              row={1}
+              name="desc"
+              value={desc}
+              onChange={handleChange}
+              placeholder="Write a description..."
+            />
+          </div>
+        </div>
+        <div className="my-2 flex gap-2">
+          <CustomButton>{editTask.id ? "Edit":"Submit"}</CustomButton>
+          {allTasks.length > 1 &&  <CustomButton onClick={clearList} className="bg-transparent border-[1px] border-primary-color text-primary-color">Clear list</CustomButton>}
+         
+        </div>
+      </form>
+    <div className="my-2">
+      {allTasks.length === 0 ? <p>No tasks created</p> : allTasks.map((todo:TaskType) =><SingleTask key={todo.id} todo={todo}/>)}
+    </div>
+    </div>
   );
 };
 
