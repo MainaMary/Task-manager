@@ -37,3 +37,9 @@ export interface TextAreaProps {
   placeholder: string,
   row: number
   }
+  export type TaskType = {
+    task: string;
+    desc: string;
+    time: string;
+    id:string
+  }
