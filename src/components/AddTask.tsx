@@ -15,7 +15,7 @@ const AddTask = () => {
     id:" ",
     time:''
   });
-  const {editTask, allTasks, setEditTask,handleEdit, setAllTasks, clearList, isComplete, setIsComplete } = useTaskList();
+  const {editTask, allTasks, setEditTask,handleEdit, setAllTasks, clearList} = useTaskList();
 
   const { task, desc } = formValues;
   const handleChange = (e: any) => {
@@ -51,8 +51,7 @@ const AddTask = () => {
       })
     }
   },[editTask])
-  console.log(formValues)
-  console.log(editTask)
+  
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
@@ -86,7 +85,7 @@ const AddTask = () => {
       desc: "",
      
       })
-      console.log('edit')
+     
      
     }else{
       setAllTasks([...allTasks, newTask]);
@@ -96,11 +95,11 @@ const AddTask = () => {
       desc: "",
      
       })
-      console.log('submit')
+     
     }
    
   };
-  console.log(allTasks);
+ 
 
   return (
     <div className=" w-full lg:w-[60%] mt-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]">

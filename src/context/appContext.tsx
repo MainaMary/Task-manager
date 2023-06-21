@@ -46,11 +46,10 @@ export const useTaskList = () =>{
 }
 
 const TaskListProvider = ({children}:Props) =>{
-    const storedTasks = localStorage.getItem('tasks');
+
  const initialState = localStorage.getItem('tasks')
  ? JSON.parse(localStorage.getItem('tasks') || '')
  : []
- console.log(storedTasks)
     const [isComplete, setIsComplete] = useState<boolean>(false);
     const [allTasks, setAllTasks] =  useState<any>(initialState);
     const [editTask, setEditTask] = useState<TaskType>(initialState)

@@ -1,4 +1,3 @@
-import React from 'react'
 import { LabelProps } from '../model/types'
 
 const CustomLabel = ({children}:LabelProps) => {
