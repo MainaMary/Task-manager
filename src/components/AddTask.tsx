@@ -8,6 +8,7 @@ import { useTaskList } from "../context/appContext";
 import Title from "./Title";
 import SingleTask from "./SingleTask";
 import { TaskType } from "../model/types";
+import { getCurrentTime } from "../utils";
 const AddTask = () => {
   const [formValues, setFormValues] = useState<any>({
     task: "",
@@ -15,30 +16,16 @@ const AddTask = () => {
     id:" ",
     time:''
   });
+  const[error, setError] = useState<string>('')
   const {editTask, allTasks, setEditTask,handleEdit, setAllTasks, clearList} = useTaskList();
 
   const { task, desc } = formValues;
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+    setError('');
     setFormValues({ ...formValues, [name]: value });
   };
-  function getCurrentTime() {
-    const currentTime = new Date();
-    let hours = currentTime.getHours();
-    let minutes: number | string = currentTime.getMinutes();
-    let amOrPm = hours >= 12 ? 'PM' : 'AM';
-  
-    hours = hours % 12;
-    hours = hours ? hours : 12; 
-  
  
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-  
-
-    const time = hours + ':' + minutes + ' ' + amOrPm;
-  
-    return time;
-  }
   useEffect(()=>{
     if(editTask !== null){
      setFormValues(editTask)
@@ -54,7 +41,9 @@ const AddTask = () => {
   
   const handleSubmit = (event: any) => {
     event.preventDefault();
-
+   if(!task ||!desc){
+    setError('Please submit all values')
+   } else{
     let newTask = {
       task,
       desc,
@@ -97,12 +86,14 @@ const AddTask = () => {
       })
      
     }
+   }
+    
    
   };
  
 
   return (
-    <div className=" w-full lg:w-[60%] mt-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]">
+    <div className=" w-full lg:w-[60%] my-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]">
       <form
         onSubmit={handleSubmit}
         className="w-full border-b-[1px] border-gray-300 pb-2"
@@ -110,6 +101,7 @@ const AddTask = () => {
         <div>
           <Title title={editTask.id  ? "Edit Task": "Add Task"} />
         </div>
+        {error && <p className="text-red-400 my-2">{error}</p>}
         <div className="block lg:flex justify-between gap-8">
           <div className="my-2 w-full lg:w-[40%] ">
             <CustomLabel>Task</CustomLabel>
