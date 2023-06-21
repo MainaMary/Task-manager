@@ -21,12 +21,23 @@ const AddTask = () => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
-  const getTime = () => {
+  function getCurrentTime() {
     const currentTime = new Date();
-    const currentHour = currentTime.getHours();
-    const currentMinute = currentTime.getMinutes();
-    return `${currentHour}: ${currentMinute}`;
-  };
+    let hours = currentTime.getHours();
+    let minutes: number | string = currentTime.getMinutes();
+    let amOrPm = hours >= 12 ? 'PM' : 'AM';
+  
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+  
+ 
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+  
+
+    const time = hours + ':' + minutes + ' ' + amOrPm;
+  
+    return time;
+  }
   useEffect(()=>{
     if(editTask !== null){
      setFormValues(editTask)
@@ -47,7 +58,7 @@ const AddTask = () => {
     let newTask = {
       task,
       desc,
-      time: getTime(),
+      time: getCurrentTime(),
       id: Date.now(),
     };
   
@@ -56,7 +67,7 @@ const AddTask = () => {
       let newTask = {
         task,
         desc,
-        time: getTime(),
+        time: getCurrentTime(),
         id: formValues.id,
       };
       handleEdit(newTask)
