@@ -4,6 +4,7 @@ import CustomLabel from "./CustomLabel";
 import CustomTextArea from "./CustomTextArea";
 import CustomInput from "./CustomInput";
 import CustomButton from "./CustomButton";
+import Pagination from "./Pagination";
 import { useTaskList } from "../context/appContext";
 import Title from "./Title";
 import SingleTask from "./SingleTask";
@@ -16,6 +17,10 @@ const AddTask = () => {
     id:" ",
     time:''
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [tasksPerPage] = useState(4)
+  
+
   const[error, setError] = useState<string>('')
   const {editTask, allTasks, setEditTask,handleEdit, setAllTasks, clearList} = useTaskList();
 
@@ -90,8 +95,14 @@ const AddTask = () => {
     
    
   };
- 
 
+  const lastIndex = currentPage * tasksPerPage;
+  const firstIndex= lastIndex -  tasksPerPage;
+  const tasks = allTasks.slice(firstIndex, lastIndex);
+
+ const handlePaginate = (pageNumber:number)=>{
+  setCurrentPage(pageNumber)
+ }
   return (
     <div className=" w-full lg:w-[60%] my-16 m-auto bg-white p-5 rounded-[10px] shadow-lg shadow-[rgba(0, 0, 0, 0.25)] w-full lg:max-w-[900px]">
       <form
@@ -131,8 +142,9 @@ const AddTask = () => {
       </form>
     <div className="my-2">
       {allTasks.length === 0 ? <p>No tasks created</p> : <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-3">
-        {allTasks.map((todo:TaskType) =><SingleTask key={todo.id} todo={todo}/>)}
+        {tasks.slice().sort((a, b) => parseInt(b.time) - parseInt(a.time)).map((todo:TaskType) =><SingleTask key={todo.id} todo={todo}/>)}
         </div>}
+        <Pagination totalTasks={allTasks.length} tasksPerPage={tasksPerPage} handlePaginate={handlePaginate}/>
     </div>
     </div>
   );
