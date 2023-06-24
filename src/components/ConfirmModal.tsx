@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import CustomModal from "./CustomModal"
-import CustomButton from "./CustomButton";
+import CustomModal from "./Modal"
+import CustomButton from "./Button";
 import { useTaskList } from "../context/appContext";
 interface ModalProps{
     showModal: boolean;

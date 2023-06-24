@@ -1,4 +1,4 @@
-import AddTask from "../components/AddTask"
+import AddTask from "../components/TaskForm"
 
 const Home = () => {
   return (
