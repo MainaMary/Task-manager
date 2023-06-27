@@ -18,7 +18,9 @@ interface initialStateType {
         desc: string,
         task: string
     },
-    handleEdit: (x: TaskType) => void
+    handleEdit: (x: TaskType) => void,
+    theme:string,
+    setTheme:any
 
 }
 
@@ -39,7 +41,9 @@ const TaskList = createContext<
         desc: '',
         task: ''
     },
-    handleEdit: () => { }
+    handleEdit: () => { },
+    theme:"light",
+    setTheme:{}
 })
 export const useTaskList = () => {
     return useContext(TaskList)
@@ -53,6 +57,7 @@ const TaskListProvider = ({ children }: Props) => {
     const [isComplete, setIsComplete] = useState<boolean>(false);
     const [allTasks, setAllTasks] = useState<any>(initialState);
     const [editTask, setEditTask] = useState<TaskType>(initialState)
+    const [theme, setTheme] = useState<string>('light')
 
 
 
@@ -77,7 +82,7 @@ const TaskListProvider = ({ children }: Props) => {
         setAllTasks(newTasks)
     }
 
-    return <TaskList.Provider value={{ findTask, setEditTask, handleEdit, editTask, isComplete, setAllTasks, setIsComplete, allTasks, handleDelete, clearList }}>{children}</TaskList.Provider>
+    return <TaskList.Provider value={{ theme, setTheme,findTask, setEditTask, handleEdit, editTask, isComplete, setAllTasks, setIsComplete, allTasks, handleDelete, clearList }}>{children}</TaskList.Provider>
 
 }
 export default TaskListProvider
