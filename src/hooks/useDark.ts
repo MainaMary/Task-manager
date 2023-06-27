@@ -7,3 +7,4 @@ const useDarkMode =()=>{
     }
 return {isDarkMode, handleToggle}
 }
+export default useDarkMode
