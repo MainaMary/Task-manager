@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { CSSProperties } from "styled-components";
 export interface Inputprops {
     onChange: (x:any)=> void;
     type:string;
@@ -37,4 +38,9 @@ export interface TextAreaProps {
     desc: string;
     time: string;
     id:string
+  }
+  export interface AppTheme{
+    dark: CSSProperties;
+    light: CSSProperties;
+    common?: CSSProperties;
   }
