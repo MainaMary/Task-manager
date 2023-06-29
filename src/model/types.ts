@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { CSSProperties } from "styled-components";
+import { CSSProperties } from "react";
 export interface Inputprops {
     onChange: (x:any)=> void;
     type:string;
