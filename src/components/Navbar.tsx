@@ -6,7 +6,7 @@ const Navbar = () => {
   const { allTasks, theme } = useTaskList()
   const headerStyle: AppTheme = {
     dark: {
-      background: 'black',
+      background: '#333',
       color: '#ffff'
     },
     light: {
